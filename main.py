@@ -10,6 +10,8 @@ from basedados import tabela_consultsie
 # Criando o Dashbord no Dash
 app = Dash(__name__)
 
+server = app.server
+
 # Criando gráficos iniciais (sem filtros aplicados)
 def gerar_figura(df_filtro, y_coluna):
     fig = px.line(df_filtro, x="DataApuração", y=y_coluna, color="Apelido")
