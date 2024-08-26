@@ -14,12 +14,12 @@ server = app.server
 
 # Criando gráficos iniciais (sem filtros aplicados)
 def gerar_figura(df_filtro, y_coluna):
-    fig = px.line(df_filtro, x="DataApuração", y=y_coluna, color="Apelido")
+    fig = px.line(df_filtro, x="DataApuração", y=y_coluna, color="Nome")
     fig.update_yaxes(range=[-5, 110]).update_layout(dragmode=False)
     return fig
 
 #TABELA
-data = tabela_consultsie[['Status', 'Porte', 'Situação', 'Dias Atraso Cobransaas', 'Data Registro', 'LT (dias)', 'Orçamento Integrado (1)', 'Obter Relatórios  (2)', 'Gerenciar Contratos Venda (3)', 
+data = tabela_consultsie[['Nome', 'Status', 'URL', 'Porte', 'Situação', 'Dias Atraso Cobransaas', 'Data Registro', 'LT (dias)', 'Orçamento Integrado (1)', 'Obter Relatórios  (2)', 'Gerenciar Contratos Venda (3)', 
                                             'Fluxo de Caixa (4)', 'Ativação', 'Data de Ativação', 'Maturidade', '0 Uso Financeiro', 'Motivo do Risco', 'Zona de Risco', 
                                             'Engagement Score', 'Novo Engagament Score', 'Ativos x contratados', 
                                             'Financeira', 'Engenharia', 'Suprimentos', 'Comercial', 'Suporte a Decisão', 
@@ -28,7 +28,7 @@ columns = [{"name": i, "id": i} for i in data.columns]
 
 
 # Lista de clientes e status
-lista_clientes = sorted(list(tabela_consultsie["Apelido"].unique()))
+lista_clientes = sorted(list(tabela_consultsie["Nome"].unique()))
 lista_clientes.append("Todos")
 
 lista_status = sorted(list(tabela_consultsie["Status"].unique()))
@@ -124,7 +124,7 @@ def selecionar_cliente(cliente):
         df_filtro = df
     else:
         texto = f"Dados de uso do(s) cliente(s): {', '.join(cliente)}"
-        df_filtro = df[df['Apelido'].isin(cliente)]
+        df_filtro = df[df['Nome'].isin(cliente)]
 
     # Atualizando as figuras com o filtro aplicado
     fig = gerar_figura(df_filtro, "Engagement Score")
